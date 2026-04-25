@@ -1,34 +1,42 @@
-name: Docker CiCd cho Advanced Forum
-on :
-  push :
+name: Docker CI/CD cho AdvancedForum
+
+on:
+  push:
     branches: [ "main", "master" ]
-  pull_request :
+  pull_request:
     branches: [ "main", "master" ]
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Kéo mã nguồn
-        uses: actions/checkout@v4
+    - name: Kéo mã nguồn về máy chủ
+      uses: actions/checkout@v4
 
-      - name: kiểm tra phiên bản Docker
-        run: |
-          docker --version
-          docker-compose --version
+    - name: Kiểm tra phiên bản Docker & Docker Compose
+      run: |
+        docker --version
+        docker compose version # Đã sửa: dùng dấu cách và chữ 'version'
 
-      - name: Chạy cac container
-        run: docker-compose up -d
+    - name: Build và khởi chạy hệ thống bằng Docker Compose
+      # Đã sửa: Bỏ dấu gạch ngang
+      run: docker compose up -d --scale web=3
 
-      - name: đợi container khởi động
-        run: sleep 10
+    - name: Chờ hệ thống khởi động (10 giây)
+      run: sleep 10
 
-      - name: kiểm tra container
-        run: docker ps
+    - name: Kiểm tra trạng thái các Container
+      # Đã sửa: Bỏ dấu gạch ngang
+      run: docker compose ps
 
-      - name: Kiểm tra ứng dụng
-        run: |
-          curl -f http://localhost:80 || exit 1
+    - name: Kiểm tra kết nối Web (Ping thử Nginx)
+      run: curl -f http://localhost:80 || exit 1
 
-      - name: Dừng và dọn dẹp container
-        run: docker-compose down
+    - name: In ra Log của Flask App (để debug nếu cần)
+      # Đã sửa: Bỏ dấu gạch ngang
+      run: docker compose logs web
+
+    - name: Dọn dẹp (Tắt container)
+      # Đã sửa: Bỏ dấu gạch ngang
+      run: docker compose down
