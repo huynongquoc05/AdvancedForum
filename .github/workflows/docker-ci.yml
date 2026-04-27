@@ -7,7 +7,27 @@ on:
     branches: [ "main", "master" ]
 
 jobs:
+  #job1 Lint_code
+  Lint-code:
+    runs-on: ubutu-latest
+
+    steps:
+      - name: Kéo mã nguồn về máy chủ
+        uses: actions/checkout@v4
+      - name: Thiết laapj pyrhon 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+          cache: 'pip'
+      - name: Cài đặt các thư viện cần thiết
+        run: pip install flake8
+
+      - name: Quét mã nguồn bằng Flake8
+        run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+
+  #job2 Build_and_test
   build-and-test:
+    needs: lint-code
     runs-on: ubuntu-latest
 
     steps:
