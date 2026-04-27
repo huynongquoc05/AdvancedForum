@@ -9,7 +9,7 @@ on:
 jobs:
   #job1 Lint_code
   lint-code:
-    runs-on: ubutu-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Kéo mã nguồn về máy chủ
