@@ -51,7 +51,7 @@ jobs:
       run: docker compose ps
 
     - name: Kiểm tra kết nối Web (Ping thử Nginx)
-      run: curl -f http://localhost:8888 || exit 1
+      run: curl -f http://localhost:8005 || exit 1
 
     - name: In ra Log của Flask App (để debug nếu cần)
       # Đã sửa: Bỏ dấu gạch ngang
