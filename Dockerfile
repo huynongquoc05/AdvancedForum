@@ -1,9 +1,9 @@
 FROM python:3.12-slim
 WORKDIR /app
 # Cài đặt các thư viện hệ thống cần thiết cho pyodbc và các package khác
-COPY requiements.txt .
+COPY requirements.txt .
 
-RUN pip install --no-cache-dir -r requiements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 # copy toàn bộ mã nguồn vào container
 COPY . .
 
