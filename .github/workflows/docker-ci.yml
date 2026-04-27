@@ -8,7 +8,7 @@ on:
 
 jobs:
   #job1 Lint_code
-  Lint-code:
+  lint-code:
     runs-on: ubutu-latest
 
     steps:
